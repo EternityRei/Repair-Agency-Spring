@@ -9,15 +9,12 @@ import com.example.repairagencyspring.model.Review;
 import com.example.repairagencyspring.model.Role;
 import com.example.repairagencyspring.model.User;
 import com.example.repairagencyspring.repository.OrderRepository;
-import com.example.repairagencyspring.repository.ReviewRepository;
-import com.example.repairagencyspring.repository.RoleRepository;
 import com.example.repairagencyspring.repository.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -35,12 +32,6 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private OrderRepository orderRepository;
-
-    @Autowired
-    private ReviewRepository reviewRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
 /*    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;*/
@@ -164,24 +155,20 @@ public class UserService implements UserDetailsService {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getUsername())
+                .password(user.getPassword())
                 .money(user.getMoney())
                 .build();
     }
 
     public boolean edit(UserDTO userDTO) {
         User user = userRepository.getById(userDTO.getId());
-        user.setEmail(userDTO.getEmail());
         user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
         user.setMoney(userDTO.getMoney());
         userRepository.save(user);
         return true;
     }
-
-
-/*    public boolean passwordVerify(User user, String pass) {
-        return bCryptPasswordEncoder.matches(pass, user.getPassword());
-    }*/
-
 
 
     private List<UserDTO> parsingUserInUserDTO(List<User> list) {
@@ -192,6 +179,7 @@ public class UserService implements UserDetailsService {
                     .id(user.getId())
                     .name(user.getName())
                     .email(user.getUsername())
+                    .password(user.getPassword())
                     .money(user.getMoney())
                     .build();
             userDTOS.add(userDTO);
