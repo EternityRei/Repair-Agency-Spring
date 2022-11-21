@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping("masterPage")
 public class MasterController {
-    private Logger logger = Logger.getLogger(MainController.class);
+    private Logger logger = Logger.getLogger(MasterController.class);
 
     @Autowired
     OrderService orderService;

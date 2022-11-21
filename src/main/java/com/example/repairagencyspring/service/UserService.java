@@ -1,6 +1,5 @@
 package com.example.repairagencyspring.service;
 
-import com.example.repairagencyspring.controller.MainController;
 import com.example.repairagencyspring.dto.OrderByUserDTO;
 import com.example.repairagencyspring.dto.OrderDTO;
 import com.example.repairagencyspring.dto.UserDTO;
@@ -25,16 +24,13 @@ import java.util.List;
 @Service
 public class UserService implements UserDetailsService {
 
-    private Logger logger = Logger.getLogger(MainController.class);
+    private Logger logger = Logger.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private OrderRepository orderRepository;
-
-/*    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;*/
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
